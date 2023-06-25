@@ -4,7 +4,11 @@ const tarefaInput = document.querySelector('#tarefa-input');
 const tarefaList = document.querySelector('#tarefa-list');
 const editForm = document.querySelector('#edit-form');
 const editInput = document.querySelector('#edit-input');
-const cancelEditBtn= document.querySelector('#erase-button');
+const cancelEditBtn= document.querySelector('#cancel-button');
+const toolbar = document.querySelector("#toolbar");
+const filterForm = document.querySelector("#filter");
+
+let oldinputvalue;
 //Funções
 const saveTarefa = (text)=>{
     //Criando DIV de tarefa
@@ -37,9 +41,32 @@ const saveTarefa = (text)=>{
 
     //Adicionando tarefa na lista
     tarefaList.appendChild(tarefa);
-    }
+    
+    //Limpando campo
+    tarefaInput.value = "";
+}
+
+const toggleForms = () => {
+    editForm.classList.toggle("hide");
+    tarefaForm.classList.toggle("hide");
+    filterForm.classList.toggle("hide");
+    toolbar.classList.toggle("hide");
+    tarefaList.classList.toggle("hide");
+}
+
+const updateTarefa = (text)=>{
+    const tarefas = document.querySelectorAll(".tarefa");
+    tarefas.forEach((tarefa)=>{
+        let tarefaTitle = tarefa.querySelector("h3");
+        if(tarefaTitle.innerText === oldinputvalue){
+            tarefaTitle.innerText = text;
+        }
+    })
+}
+
 
 //Eventos
+//Evento de adicionar nova tarefa
 tarefaForm.addEventListener("submit",(e) =>{
     e.preventDefault()
     
@@ -48,3 +75,43 @@ tarefaForm.addEventListener("submit",(e) =>{
         saveTarefa(inputValue)
     }
 })
+
+//Eventos dos botões de cada tarefa
+document.addEventListener("click", (e)=>{
+    //define o elemento que foi clicado
+    const targetEl = e.target;
+    const parentDiv = targetEl.closest("div");
+    let tarefaTitle;
+    if(parentDiv && parentDiv.querySelector("h3")){
+        tarefaTitle = parentDiv.querySelector("h3").innerText
+
+    }
+    //Se o botão clicado for o de concluir, tarefa adicionará classe de concluir
+    if(targetEl.classList.contains("finish-tarefa") || targetEl.classList.contains("fa-check")){
+        parentDiv.classList.toggle("done");
+    }
+    //Se o botão clicado for o de excluir, tarefa será excluída
+    if(targetEl.classList.contains("remove-tarefa") || targetEl.classList.contains("fa-xmark")){
+        parentDiv.remove();
+    }
+    if(targetEl.classList.contains("edit-tarefa") || targetEl.classList.contains("fa-pen")){
+    toggleForms();
+    editInput.value=tarefaTitle;
+    oldinputvalue = tarefaTitle;
+    }
+})
+
+cancelEditBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    toggleForms();
+})
+
+editForm.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    const edtiInputValue = editInput.value;
+    if(edtiInputValue){
+        updateTarefa(edtiInputValue)
+    }
+    toggleForms()
+})
+
