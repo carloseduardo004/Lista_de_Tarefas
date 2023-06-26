@@ -3,21 +3,27 @@
     margin: 0;
 }
 
+
 body{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: rgb(168, 168, 168);
+    height: auto;
+    background-image: linear-gradient(#c09bf1,#bf5df8,#7c44be);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
  header{
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
 }
 .container{
-    background-color: white;
+    background-color: #fff;
     padding: 20px 20px 20px 20px;
+    margin: 20px 0px 20px 0px;
     border-radius: 15px;
+    width: 400px;
 }
 
 input{
@@ -29,25 +35,67 @@ button{
     height: auto;
     padding: 5px 10px 5px 10px;
     font-size: 18px;
+    background-color: #8052ec;
+    color: #f5f5f6;
+    border: none;
 }
 
 div.form{
     display: flex;
     align-items: stretch;
 }
+div.form button{
+    margin-left:2px;
+    width: 40px;
+}
+div.form #edit-input{
+    width: 100%;
+}
+h4{
+    margin-bottom: 5px;
+}
+#search form{
+    display: flex;
+    align-items: stretch;
+}
+#search form button{
+    margin-left: 2px;
+    width: 40px;
+}
+#cancel-button {
+    margin-top:20px;
+}
+
+.filtros{
+    display: flex;
+    justify-content: space-between;
+}
+select{
+    height:auto;
+    padding: 5px 10px 5px 10px;
+    font-size: 18px;
+}
+
 .tarefa{
     display: flex;
     justify-content: stretch;
     align-items: center;
     padding: 10px 10px 10px 10px;
-    border: #1f4270 solid 1px;
+    border: #7c44be solid 1px;
+    margin-top: 10px;
+}
+.finish-tarefa{
+    background-color: #4b9249;
+}
+.remove-tarefa{
+    background-color: #da5454;
 }
 .tarefa h3{
     margin-right: 10px;
+    flex-basis: 80%;
 }
 .tarefa button{
-    display: flex;
-    height: auto;
+    margin-left: 2px;
 }
 
 #tarefa-list,#toolbar,#filter{
@@ -57,9 +105,8 @@ div.form{
 .hide{
     display: none;
 }
-
 .done{
-    background-color: #1f4270;
-    color: #f5f5f6;
+    background-color: #a0fc9d;
+    border-color: #4b9249;
 }
 

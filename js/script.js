@@ -35,7 +35,7 @@ const saveTarefa = (text)=>{
     //Adicionando ícone aos botões
     finishBtn.innerHTML= '<i class="fa-solid fa-check"></i>';
     editBtn.innerHTML='<i class="fa-solid fa-pen"></i>';
-    removeBtn.innerHTML='<i class="fa-solid fa-xmark"></i>';
+    removeBtn.innerHTML='<i class="fa-solid fa-trash"></i>';
     
     //Adicionando botões à DIV de tarefa
     tarefa.appendChild(finishBtn);
@@ -93,9 +93,9 @@ const filterTarefa = (text)=>{
 //Evento de adicionar nova tarefa
 tarefaForm.addEventListener("submit",(e) =>{
     e.preventDefault()
-    
     const inputValue = tarefaInput.value 
     if(inputValue){
+        searchInput.value= "";
         saveTarefa(inputValue);
         filterTarefa(filterInput.value);
     }
@@ -117,7 +117,7 @@ document.addEventListener("click", (e)=>{
         filterTarefa(filterInput.value);
     }
     //Se o botão clicado for o de excluir, tarefa será excluída
-    if(targetEl.classList.contains("remove-tarefa") || targetEl.classList.contains("fa-xmark")){
+    if(targetEl.classList.contains("remove-tarefa") || targetEl.classList.contains("fa-trash")){
         parentDiv.remove();
     }
     if(targetEl.classList.contains("edit-tarefa") || targetEl.classList.contains("fa-pen")){
