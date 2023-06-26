@@ -114,6 +114,7 @@ document.addEventListener("click", (e)=>{
     //Se o botão clicado for o de concluir, tarefa adicionará classe de concluir
     if(targetEl.classList.contains("finish-tarefa") || targetEl.classList.contains("fa-check")){
         parentDiv.classList.toggle("done");
+        filterTarefa(filterInput.value);
     }
     //Se o botão clicado for o de excluir, tarefa será excluída
     if(targetEl.classList.contains("remove-tarefa") || targetEl.classList.contains("fa-xmark")){
