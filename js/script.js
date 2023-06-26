@@ -153,15 +153,47 @@ searchInput.addEventListener("input", (e)=>{
 
     if(!inputText==""){
     tarefas.forEach((tarefa)=>{
-        tarefa.classList.add("hide");
-        let tarefaTitle = tarefa.querySelector("h3").innerText.toLowerCase();
-        let titleLength = "";
-        for(var i = 0; i<inputText.length;i++){
-            titleLength = titleLength + tarefaTitle[i];
+        //pesquisa para o filtro "todos"
+        if(filterInput.value=="todos"){            
+            tarefa.classList.add("hide");
+            let tarefaTitle = tarefa.querySelector("h3").innerText.toLowerCase();
+            let titleLength = "";
+            for(var i = 0; i<inputText.length;i++){
+                titleLength = titleLength + tarefaTitle[i];
+            }
+            if(titleLength==inputText){
+                tarefa.classList.remove("hide")
+            }
         }
-        if(titleLength==inputText){
-            tarefa.classList.remove("hide")
-        } 
+        //pesquisa para o filtro "feitas"
+        if(filterInput.value=="feitas"){
+            if(tarefa.classList.contains("done")){
+                tarefa.classList.add("hide");
+                let tarefaTitle = tarefa.querySelector("h3").innerText.toLowerCase();
+                let titleLength = "";
+                for(var i = 0; i<inputText.length;i++){
+                    titleLength = titleLength + tarefaTitle[i];
+                }
+                if(titleLength==inputText){
+                    tarefa.classList.remove("hide")
+                }
+            } 
+        };
+        //pesquisa para o filtro "a fazer"
+        if(filterInput.value=="a fazer"){
+            if(!tarefa.classList.contains("done")){
+                tarefa.classList.add("hide");
+                let tarefaTitle = tarefa.querySelector("h3").innerText.toLowerCase();
+                let titleLength = "";
+                for(var i = 0; i<inputText.length;i++){
+                    titleLength = titleLength + tarefaTitle[i];
+                }
+                if(titleLength==inputText){
+                    tarefa.classList.remove("hide")
+                }
+            } 
+        }
+        
     })
     
     }else{filterTarefa(filterInput.value);}
