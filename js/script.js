@@ -8,6 +8,8 @@ const cancelEditBtn= document.querySelector('#cancel-button');
 const toolbar = document.querySelector("#toolbar");
 const filterForm = document.querySelector("#filter");
 const filterInput = document.querySelector("#filter-select");
+const searchInput = document.querySelector("#search-input");
+const eraseBtn = document.querySelector("#erase-button");
 
 let oldinputvalue;
 //Funções
@@ -143,3 +145,33 @@ editForm.addEventListener("submit",(e)=>{
     e.preventDefault();
     filterTarefa(filterInput.value);
 })
+
+//Evento de pesquisar
+searchInput.addEventListener("input", (e)=>{
+    let inputText = e.target.value.toLowerCase();
+    const tarefas = document.querySelectorAll(".tarefa");
+
+    if(!inputText==""){
+    tarefas.forEach((tarefa)=>{
+        tarefa.classList.add("hide");
+        let tarefaTitle = tarefa.querySelector("h3").innerText.toLowerCase();
+        let titleLength = "";
+        for(var i = 0; i<inputText.length;i++){
+            titleLength = titleLength + tarefaTitle[i];
+        }
+        if(titleLength==inputText){
+            tarefa.classList.remove("hide")
+        } 
+    })
+    
+    }else{filterTarefa(filterInput.value);}
+    }
+);
+
+eraseBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    searchInput.value="";
+    filterTarefa(filterInput.value);
+})
+
+
