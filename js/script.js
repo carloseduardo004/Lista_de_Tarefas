@@ -7,6 +7,7 @@ const editInput = document.querySelector('#edit-input');
 const cancelEditBtn= document.querySelector('#cancel-button');
 const toolbar = document.querySelector("#toolbar");
 const filterForm = document.querySelector("#filter");
+const filterInput = document.querySelector("#filter-select");
 
 let oldinputvalue;
 //Funções
@@ -65,6 +66,27 @@ const updateTarefa = (text)=>{
 }
 
 
+const filterTarefa = (text)=>{
+    const tarefas = document.querySelectorAll(".tarefa");
+    tarefas.forEach((tarefa)=>{
+        tarefa.classList.add("hide")
+        if(text=="todos"){
+            tarefa.classList.remove("hide");
+        }
+        if(text=="feitas"){
+            if(tarefa.classList.contains("done")){
+                tarefa.classList.remove("hide")
+            }
+        }
+        if(text=="a fazer"){
+            if(!tarefa.classList.contains("done")){
+                tarefa.classList.remove("hide");
+            }
+        }
+    })
+}
+
+
 //Eventos
 //Evento de adicionar nova tarefa
 tarefaForm.addEventListener("submit",(e) =>{
@@ -72,7 +94,8 @@ tarefaForm.addEventListener("submit",(e) =>{
     
     const inputValue = tarefaInput.value 
     if(inputValue){
-        saveTarefa(inputValue)
+        saveTarefa(inputValue);
+        filterTarefa(filterInput.value);
     }
 })
 
@@ -115,3 +138,8 @@ editForm.addEventListener("submit",(e)=>{
     toggleForms()
 })
 
+//Evento de filtro
+ filterInput.addEventListener("click", (e)=>{
+    e.preventDefault();
+    filterTarefa(filterInput.value);
+})
